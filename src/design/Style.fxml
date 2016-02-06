@@ -3,7 +3,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
@@ -23,7 +25,9 @@
       <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
       <RowConstraints maxHeight="10.0" minHeight="0.0" prefHeight="0.0" />
       <RowConstraints maxHeight="10.0" minHeight="0.0" prefHeight="0.0" />
-      <RowConstraints fillHeight="false" maxHeight="500.0" minHeight="10.0" prefHeight="150.0" />
+      <RowConstraints fillHeight="false" maxHeight="500.0" minHeight="10.0" prefHeight="240.0" />
+      <RowConstraints fillHeight="false" maxHeight="500.0" minHeight="10.0" prefHeight="149.0" />
+      <RowConstraints fillHeight="false" maxHeight="500.0" minHeight="10.0" prefHeight="50.0" />
    </rowConstraints>
    <children>
       <Pane prefHeight="64.0" prefWidth="700.0">
@@ -39,6 +43,94 @@
          </children>
       </Pane>
       <Separator prefWidth="200.0" GridPane.rowIndex="4" />
-      <Button fx:id="buttontest" mnemonicParsing="false" onAction="#createDialog" text="Click Me" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+      <ListView editable="true" prefHeight="239.0" prefWidth="700.0" GridPane.rowIndex="5" />
+      <Label text="Song Info" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP">
+         <GridPane.margin>
+            <Insets bottom="10.0" />
+         </GridPane.margin>
+         <font>
+            <Font name="Consolas" size="22.0" />
+         </font>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </Label>
+      <Label GridPane.rowIndex="6" />
+      <Label text="NAME" GridPane.rowIndex="6">
+         <font>
+            <Font name="Calibri" size="19.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="60.0" left="200.0" />
+         </GridPane.margin>
+      </Label>
+      <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="343.0" GridPane.rowIndex="6">
+         <GridPane.margin>
+            <Insets bottom="60.0" left="275.0" />
+         </GridPane.margin>
+      </TextField>
+      <Label text="ARTIST" GridPane.rowIndex="6">
+         <font>
+            <Font name="Calibri" size="19.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="200.0" />
+         </GridPane.margin>
+      </Label>
+      <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="343.0" GridPane.rowIndex="6">
+         <GridPane.margin>
+            <Insets left="275.0" />
+         </GridPane.margin>
+      </TextField>
+      <Label text="ALBUM" GridPane.rowIndex="6">
+         <font>
+            <Font name="Calibri" size="19.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="-60.0" left="200.0" />
+         </GridPane.margin>
+      </Label>
+      <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="343.0" GridPane.rowIndex="6">
+         <GridPane.margin>
+            <Insets bottom="-60.0" left="275.0" />
+         </GridPane.margin>
+      </TextField>
+      <Label text="YEAR" GridPane.rowIndex="6">
+         <font>
+            <Font name="Calibri" size="19.0" />
+         </font>
+         <GridPane.margin>
+            <Insets bottom="-120.0" left="200.0" />
+         </GridPane.margin>
+      </Label>
+      <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="343.0" GridPane.rowIndex="6">
+         <GridPane.margin>
+            <Insets bottom="-120.0" left="275.0" />
+         </GridPane.margin>
+      </TextField>
+      <Button mnemonicParsing="false" prefHeight="28.0" prefWidth="75.0" text="ADD" GridPane.rowIndex="7">
+         <GridPane.margin>
+            <Insets left="125.0" />
+         </GridPane.margin>
+         <font>
+            <Font name="Corbel" size="15.0" />
+         </font>
+      </Button>
+      <Button mnemonicParsing="false" prefHeight="28.0" prefWidth="75.0" text="EDIT" GridPane.rowIndex="7">
+         <font>
+            <Font name="Corbel" size="15.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="325.0" />
+         </GridPane.margin>
+      </Button>
+      <Button mnemonicParsing="false" prefHeight="28.0" prefWidth="75.0" text="DELETE" GridPane.rowIndex="7">
+         <font>
+            <Font name="Corbel" size="15.0" />
+         </font>
+         <GridPane.margin>
+            <Insets left="525.0" />
+         </GridPane.margin>
+      </Button>
    </children>
 </GridPane>
