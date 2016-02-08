@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
+
+<?import javafx.collections.*?>
 
 <GridPane prefHeight="499.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="design.Controller">
    <columnConstraints>
@@ -43,7 +39,17 @@
          </children>
       </Pane>
       <Separator prefWidth="200.0" GridPane.rowIndex="4" />
-      <ListView editable="true" prefHeight="239.0" prefWidth="700.0" GridPane.rowIndex="5" />
+      <ListView editable="true" prefHeight="239.0" prefWidth="700.0" GridPane.rowIndex="5" >
+       <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="One"/>
+                    <String fx:value="Two"/>
+                    <String fx:value="Three"/>
+                    <String fx:value="Four"/>
+                    <String fx:value="Five"/>
+                </FXCollections>
+            </items>
+      </ListView>
       <Label text="Song Info" GridPane.halignment="CENTER" GridPane.rowIndex="6" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets bottom="10.0" />
@@ -132,5 +138,13 @@
             <Insets left="525.0" />
          </GridPane.margin>
       </Button>
+      <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.rowIndex="7">
+         <GridPane.margin>
+            <Insets left="250.0" />
+         </GridPane.margin>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </Separator>
    </children>
 </GridPane>
