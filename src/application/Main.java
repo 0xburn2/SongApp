@@ -1,5 +1,12 @@
 package application;
 	
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import design.Song;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -24,5 +31,24 @@ public class Main extends Application {
 	
 	public static void main(String[] args) {
 		launch(args);
+	}
+	
+	
+	
+	public static ArrayList<design.Song> populateList() throws FileNotFoundException{
+		
+		ArrayList<Song> songList = new ArrayList<>();
+		Scanner sc = new Scanner(new File("C:/Users/Peter/Documents/GitHub/SongApp/src/application/songsList.txt"));
+		
+		
+		
+		while(sc.hasNext()){
+			Song song1 = new Song(sc.nextLine(), sc.nextLine(), sc.nextLine(), Integer.parseInt(sc.nextLine()));
+			songList.add(song1);
+		}
+		sc.close();
+		return songList;
+		
+		
 	}
 }
