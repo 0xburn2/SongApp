@@ -62,7 +62,7 @@ public class Controller implements Initializable {
 		
                 
                 //Check if song is already on the list
-                if(findSong(name, album)){
+                if(findSong(name, artist)){
                     System.out.println("song repeat");
                     return;
                 }
@@ -134,9 +134,9 @@ public class Controller implements Initializable {
 		return null;
 	}
         
-        private boolean findSong(String name, String album){
+        private boolean findSong(String name, String artist){
             for(Song findSong : songArray) {
-                if(findSong.getName().equals(name) && findSong.getAlbum().equals(album)) {
+                if(findSong.getName().equals(name) && findSong.getArtist().equals(artist)) {
                     return true;
                 }
             }
