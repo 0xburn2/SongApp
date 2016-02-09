@@ -45,12 +45,14 @@ public class Controller implements Initializable {
 	
 	
 	@FXML private void addSong(ActionEvent event){
-		
+		List<Song> songArray = populateListc();
+                
 		String name = songName.getText();
 		String artist = songArtist.getText();
 		String album = songAlbum.getText();
                 int yearString = 0;
 		// String year = songYear.getText();
+                // Check for valid year input
                 try {
                      yearString = Integer.parseInt(songYear.getText());
                 } catch (NumberFormatException e) {
@@ -60,6 +62,15 @@ public class Controller implements Initializable {
                 if(!(yearString > 1500 && yearString < 2017))
                     return;
 		
+                // Check if the song already exists 
+                if(findSong(name, album)){
+                    System.out.println("song already there");
+                    return;
+                }
+                else{
+                    System.out.println("song not there");
+                }
+                
 		//Writes the four current textfields to new lines in songsList.txt in order to be added to the ArrayList
 		try { 
 			FileWriter out = new FileWriter("./src/application/songsList.txt", true);
@@ -74,7 +85,7 @@ public class Controller implements Initializable {
 		}
 		
 		//Re-populate the arrayList with the new Song
-		List<Song> songArray = populateListc();
+		songArray = populateListc();
 		
 		//Refresh the List View display
 		listViewofSongs.setItems(FXCollections.observableList(songArray));
@@ -128,6 +139,15 @@ public class Controller implements Initializable {
 		
 
 	}
+        
+        private boolean findSong(String song, String album) {
+            for(Song findSong : songArray) {
+                if(findSong.getName().equals(song) && findSong.getAlbum().equals(album)) {
+                    return true;
+                }
+            }
+            return false;
+        }
 	
 	
 	
