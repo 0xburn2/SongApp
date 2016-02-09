@@ -49,7 +49,16 @@ public class Controller implements Initializable {
 		String name = songName.getText();
 		String artist = songArtist.getText();
 		String album = songAlbum.getText();
-		String year = songYear.getText();
+                int yearString = 0;
+		// String year = songYear.getText();
+                try {
+                     yearString = Integer.parseInt(songYear.getText());
+                } catch (NumberFormatException e) {
+                    songYear.setText("INVALID YEAR!!");
+                    return;
+                }
+                if(!(yearString > 1500 && yearString < 2017))
+                    return;
 		
 		//Writes the four current textfields to new lines in songsList.txt in order to be added to the ArrayList
 		try { 
@@ -57,7 +66,7 @@ public class Controller implements Initializable {
 			out.write(name + "\n");
 			out.write(artist + "\n");
 			out.write(album + "\n");
-			out.write(year + "\n");
+			out.write(yearString + "\n");
 			out.close();
 
 		} catch (IOException e) {
