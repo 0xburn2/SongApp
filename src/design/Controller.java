@@ -60,6 +60,13 @@ public class Controller implements Initializable {
                 if(!(yearString > 1500 && yearString < 2017))
                     return;
 		
+                
+                //Check if song is already on the list
+                if(findSong(name, album)){
+                    System.out.println("song repeat");
+                    return;
+                }
+                
 		//Writes the four current textfields to new lines in songsList.txt in order to be added to the ArrayList
 		try { 
 			FileWriter out = new FileWriter("./src/application/songsList.txt", true);
@@ -125,11 +132,14 @@ public class Controller implements Initializable {
 			e.printStackTrace();
 		}
 		return null;
-		
-
 	}
-	
-	
-	
-
+        
+        private boolean findSong(String name, String album){
+            for(Song findSong : songArray) {
+                if(findSong.getName().equals(name) && findSong.getAlbum().equals(album)) {
+                    return true;
+                }
+            }
+            return false;
+        }
 }
