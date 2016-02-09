@@ -38,7 +38,7 @@ public class Main extends Application {
 	public static ArrayList<design.Song> populateList() throws FileNotFoundException{
 		
 		ArrayList<Song> songList = new ArrayList<>();
-		Scanner sc = new Scanner(new File("C:/Users/Peter/Documents/GitHub/SongApp/src/application/songsList.txt"));
+		Scanner sc = new Scanner(new File("./src/application/songsList.txt"));
 		
 		
 		
