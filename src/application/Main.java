@@ -1,9 +1,7 @@
 package application;
-	
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
-
 import design.Song;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

@@ -18,6 +18,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
+/*
+ * TO DO:
+  	1. Catch the error that occurs if somebody enters a non-integer value in the Year field
+  	2. Auto-select the newly added song
+  	3. Before adding a song, check to see if a Song with that same name and artist already exists and refuse the add if it does
+  	4. Make the album and year fields optional for adding/editing
+  	5. Fix the error in console that occurs when adding (but for some reason doesn't interfere otherwise)
+  	6. Add Edit functionality
+  	7. Add Delete Functionality
+ */
+
 public class Controller implements Initializable {
 	
 	Charset utf8 = StandardCharsets.UTF_8;
@@ -30,7 +41,6 @@ public class Controller implements Initializable {
 	@FXML private TextField songArtist;
 	@FXML private TextField songAlbum;
 	@FXML private TextField songYear;
-	@FXML private Button addButton;
 	
 	
 	
@@ -89,7 +99,7 @@ public class Controller implements Initializable {
 	    		songArtist.setText(newValue.getArtist());
 	    		songAlbum.setText(newValue.getAlbum());
 	    		songYear.setText(String.valueOf(newValue.getYear()));
-	    	    System.out.println("ListView Selection Changed (currently selected: " + newValue.getName() + ")");
+	    	    System.out.println("Currently selected song: " + newValue.getName() + " by " + newValue.getArtist() + ".");
 	    	});
 	 }
 	
