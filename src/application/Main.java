@@ -2,9 +2,7 @@ package application;
 	
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import design.Song;
 import javafx.application.Application;
@@ -34,7 +32,9 @@ public class Main extends Application {
 	}
 	
 	
-	
+	/*
+	 * Populates the ArrayList from the songsList text file, then sorts it alphabetically.
+	 */
 	public static ArrayList<design.Song> populateList() throws FileNotFoundException{
 		
 		ArrayList<Song> songList = new ArrayList<>();
@@ -43,10 +43,20 @@ public class Main extends Application {
 		
 		
 		while(sc.hasNext()){
+			//Reads the name, artist, album, and year one line at a time and creates a Song object with the information
 			Song song1 = new Song(sc.nextLine(), sc.nextLine(), sc.nextLine(), Integer.parseInt(sc.nextLine()));
 			songList.add(song1);
 		}
 		sc.close();
+		
+		//Sort the ArrayList of Songs
+		Collections.sort(songList, new Comparator<Song>(){
+		    public int compare(Song s1, Song s2) {
+		        return s1.getName().compareToIgnoreCase(s2.getName());
+		    }
+		});
+		
+		//Return the songList
 		return songList;
 		
 		
