@@ -83,8 +83,8 @@ public class Controller implements Initializable {
 
         //Check if no Year is entered to prevent it from writing to the text file and causing errors.
         if (year.equals("")){
-        	songYear.setText("Please enter 0 for no year option");
-        	return;
+        	songYear.setText("0");
+        	year = "0";
         }
         
         //Writes the four current textfields to new lines in songsList.txt in order to be added to the ArrayList
