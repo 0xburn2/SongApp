@@ -62,7 +62,7 @@ public class Controller implements Initializable {
             // Check for proper int input
             try {
                 yearString = Integer.parseInt(year);
-                if (!(yearString > 1500 && yearString < 2017)) {
+                if (!(yearString > -1 && yearString < 2017)) {
                     songYear.setText("INVALID YEAR!!");
                     return;
                 }
@@ -83,6 +83,7 @@ public class Controller implements Initializable {
 
         //Check if no Year is entered to prevent it from writing to the text file and causing errors.
         if (year.equals("")){
+        	songYear.setText("Please enter 0 for no year option");
         	return;
         }
         
