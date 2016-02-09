@@ -1,5 +1,5 @@
 package design;
-import application.Main;
+import application.SongLib;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -110,7 +110,7 @@ public class Controller implements Initializable {
 	 */
 	public ArrayList<Song> populateListc(){
 		try {
-			ArrayList<Song> test = Main.populateList();
+			ArrayList<Song> test = SongLib.populateList();
 			return test;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
