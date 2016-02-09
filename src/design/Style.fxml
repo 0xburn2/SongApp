@@ -109,7 +109,7 @@
             <Insets bottom="-120.0" left="275.0" />
          </GridPane.margin>
       </TextField>
-      <Button mnemonicParsing="false" prefHeight="28.0" prefWidth="75.0" text="ADD" GridPane.rowIndex="7">
+      <Button fx:id="addButton" mnemonicParsing="false" onAction="#addSong" prefHeight="28.0" prefWidth="75.0" text="ADD" GridPane.rowIndex="7">
          <GridPane.margin>
             <Insets left="125.0" />
          </GridPane.margin>
