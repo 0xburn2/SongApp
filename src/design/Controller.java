@@ -72,7 +72,7 @@ public class Controller implements Initializable {
                 return;
             }
         } else {
-            year = "N/A";
+            year = songYear.getText();
         }
 
         //Check if song is already on the list
@@ -81,6 +81,11 @@ public class Controller implements Initializable {
             return;
         }
 
+        //Check if no Year is entered to prevent it from writing to the text file and causing errors.
+        if (year.equals("")){
+        	return;
+        }
+        
         //Writes the four current textfields to new lines in songsList.txt in order to be added to the ArrayList
         try {
             FileWriter out = new FileWriter("./src/application/songsList.txt", true);

@@ -42,8 +42,9 @@ public class SongLib extends Application {
 		
 		while(sc.hasNext()){
 			//Reads the name, artist, album, and year one line at a time and creates a Song object with the information
+			
 			Song song1 = new Song(sc.nextLine(), sc.nextLine(), sc.nextLine(), Integer.parseInt(sc.nextLine()));
-			songList.add(song1);
+			songList.add(song1); 
 		}
 		sc.close();
 		
