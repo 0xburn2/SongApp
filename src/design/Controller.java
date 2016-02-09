@@ -21,9 +21,9 @@ import javafx.scene.control.TextField;
 
 /*
  * TO DO:
- 1. Catch the error that occurs if somebody enters a non-integer value in the Year field
+ 1. FINISHED - Catch the error that occurs if somebody enters a non-integer value in the Year field
  2. Auto-select the newly added song
- 3. Before adding a song, check to see if a Song with that same name and artist already exists and refuse the add if it does
+ 3. FINISH - Before adding a song, check to see if a Song with that same name and artist already exists and refuse the add if it does
  4. Make the album and year fields optional for adding/editing
  5. Fix the error in console that occurs when adding (but for some reason doesn't interfere otherwise)
  6. Add Edit functionality
