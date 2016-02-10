@@ -72,7 +72,7 @@ public class Controller implements Initializable {
                 return;
             }
         } else {
-            year = songYear.getText();
+            year = "N/A";
         }
 
         //Check if song is already on the list
@@ -81,19 +81,20 @@ public class Controller implements Initializable {
             return;
         }
 
-        //Check if no Year is entered to prevent it from writing to the text file and causing errors.
-        if (year.equals("")){
-        	songYear.setText("0");
-        	year = "0";
-        }
+//        //Check if no Year is entered to prevent it from writing to the text file and causing errors.
+//        if (year.equals("")){
+//        	songYear.setText("0");
+//        	year = "0";
+//        }
         
         //Writes the four current textfields to new lines in songsList.txt in order to be added to the ArrayList
         try {
             FileWriter out = new FileWriter("./src/application/songsList.txt", true);
-            out.write(name + "\n");
-            out.write(artist + "\n");
-            out.write(album + "\n");
-            out.write(year + "\n");
+            out.write(name + "\n" + artist + "\n" + album + "\n" + year + "\n");
+//            out.write(artist + "\n");
+//            out.write(album + "\n");
+//            out.write(year + "\n");
+            out.flush();
             out.close();
 
         } catch (IOException e) {
@@ -128,7 +129,7 @@ public class Controller implements Initializable {
             songName.setText(newValue.getName());
             songArtist.setText(newValue.getArtist());
             songAlbum.setText(newValue.getAlbum());
-            songYear.setText(String.valueOf(newValue.getYear()));
+            songYear.setText(newValue.getYear());
             System.out.println("Currently selected song: " + newValue.getName() + " by " + newValue.getArtist() + ".");
         });
     }
