@@ -86,7 +86,7 @@ public class Controller implements Initializable {
         	songYear.setText("0");
         	year = "0";
         }
-      
+        
         //Writes the four current textfields to new lines in songsList.txt in order to be added to the ArrayList
         try {
             FileWriter out = new FileWriter("./src/application/songsList.txt", true);
