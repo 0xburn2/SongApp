@@ -117,7 +117,7 @@
             <Font name="Corbel" size="15.0" />
          </font>
       </Button>
-      <Button mnemonicParsing="false" prefHeight="28.0" prefWidth="75.0" text="EDIT" GridPane.rowIndex="7">
+      <Button fx:id="editButton" mnemonicParsing="false" onAction="#editSong" prefHeight="28.0" prefWidth="75.0" text="EDIT" GridPane.rowIndex="7">
          <font>
             <Font name="Corbel" size="15.0" />
          </font>
@@ -125,7 +125,7 @@
             <Insets left="325.0" />
          </GridPane.margin>
       </Button>
-      <Button mnemonicParsing="false" prefHeight="28.0" prefWidth="75.0" text="DELETE" GridPane.rowIndex="7">
+      <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteSong" prefHeight="28.0" prefWidth="75.0" text="DELETE" GridPane.rowIndex="7">
          <font>
             <Font name="Corbel" size="15.0" />
          </font>

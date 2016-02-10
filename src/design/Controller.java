@@ -109,6 +109,65 @@ public class Controller implements Initializable {
         listViewofSongs.setItems(FXCollections.observableList(songArray));
 
     }
+    
+    @FXML
+    private void editSong(ActionEvent event) {
+        ArrayList<Song> songArray = populateListc();
+               
+    }
+    
+    @FXML
+    private void deleteSong(ActionEvent event) {
+        
+        ArrayList<Song> songArray = populateListc();
+        String name = songName.getText();
+        String artist = songArtist.getText();
+        String album = songAlbum.getText();
+        String year = songYear.getText();
+        
+        // Delete the song if it is on the list
+        for(int j = 0; j < songArray.size(); j++)
+        {
+            Song song = songArray.get(j);
+
+            if(song.getName().equals(name) && song.getArtist().equals(artist)){
+               //found, delete.
+                songArray.remove(j);
+                break;
+            }
+        }
+        System.out.println("finish delete");
+//        for (Song findSong : songArray) {
+//            System.out.print(findSong.getName() + ", ");
+//            System.out.println(findSong.getArtist());
+//            if (findSong.getName().equals(name) && findSong.getArtist().equals(artist)) {
+//                System.out.println("trying to delete song");
+//                songArray.remove(songArray.indexOf(findSong));
+//            }
+//            else{
+//                songName.setText(name + " <-Song is not on the list");
+//            }
+//        }
+        // Write everything to txt file; overwrite everything
+        System.out.println("writing everything to file");
+        try {
+            FileWriter out = new FileWriter("./src/application/songsList.txt", false);
+            for (Song findSong : songArray) {
+                System.out.print(findSong.getName() + ", ");
+                System.out.println(findSong.getArtist());
+                out.write(findSong.getName() + "\n" + findSong.getArtist() + "\n" 
+                        + findSong.getAlbum() + "\n" + findSong.getYear() + "\n");
+            }
+            out.flush();
+            out.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+                listViewofSongs.setItems(FXCollections.observableList(songArray));
+
+    }
 
     /*
      * Initial list population
@@ -153,6 +212,7 @@ public class Controller implements Initializable {
         return null;
     }
 
+    // Used to find if song is already on the list
     private boolean findSong(ArrayList<Song> songs, String name, String artist) {
         for (Song findSong : songs) {
             System.out.print(findSong.getName() + ", ");
