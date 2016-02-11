@@ -83,7 +83,7 @@ public class Controller implements Initializable {
         //Check if song is already on the list
         System.out.println("testing for repeats");
         if (findSong(songArray, name, artist)) {
-            songName.setText(name + " <-Song is Already on List");
+        	System.out.println("Song already exists...create dialog box.");
             return;
         }
 
