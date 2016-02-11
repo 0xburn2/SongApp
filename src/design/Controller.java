@@ -80,6 +80,11 @@ public class Controller implements Initializable {
         } else {
             year = "N/A";
         }
+        
+        //Check for blank album field
+        if(album.equals("")){
+            album = "N/A";
+        }
 
         //Check if song is already on the list
         System.out.println("testing for repeats");
@@ -150,6 +155,7 @@ public class Controller implements Initializable {
 //                songName.setText(name + " <-Song is not on the list");
 //            }
 //        }
+        
         // Write everything to txt file; overwrite everything
         System.out.println("writing everything to file");
         try {
