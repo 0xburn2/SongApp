@@ -1,5 +1,6 @@
 package design;
 
+import javax.swing.JOptionPane;
 import application.SongLib;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -84,10 +85,17 @@ public class Controller implements Initializable {
         	return;
         }
 
+        //Check for blank album field
+        if(album.equals("")){
+            album = "N/A";
+
+        }
+
         //Check if song is already on the list
         System.out.println("testing for repeats");
         if (findSong(songArray, name, artist)) {
         	System.out.println("Song already exists...create dialog box.");
+                infoBox("The song is already on the list", "Song Repeat");
             return;
         }
 
@@ -113,7 +121,7 @@ public class Controller implements Initializable {
         listViewofSongs.setItems(FXCollections.observableList(songArray));
         
         listViewofSongs.getSelectionModel().select(4);
-
+        
     }
     
     @FXML
@@ -155,6 +163,7 @@ public class Controller implements Initializable {
 //                songName.setText(name + " <-Song is not on the list");
 //            }
 //        }
+        
         // Write everything to txt file; overwrite everything
         System.out.println("writing everything to file");
         try {
@@ -240,6 +249,12 @@ public class Controller implements Initializable {
             System.out.println(findSong.getArtist());
             System.out.println("---------------");
         }
+    }
+    
+    //Display a dialog box
+    public static void infoBox(String infoMessage, String titleBar)
+    {
+        JOptionPane.showMessageDialog(null, infoMessage, "Error: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
     }
 }
 
