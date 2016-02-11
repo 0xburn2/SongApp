@@ -25,7 +25,6 @@ import javafx.stage.Popup;
 
 /*
  * TO DO:
- 2. Auto-select the newly added song
  3. Move the selection to a new song after Deletion 
  6. Add Edit functionality
  */
@@ -116,7 +115,7 @@ public class Controller implements Initializable {
         //Refresh the List View display
         listViewofSongs.setItems(FXCollections.observableList(songArray));
         
-        
+        //Select newly added song in ListView
         for (int i = 0; i < songArray.size(); i++){
             Song song = songArray.get(i);
         	if (song.getName().equals(songName.getText())){
@@ -184,7 +183,12 @@ public class Controller implements Initializable {
             e.printStackTrace();
         }
         
+        
+     
                 listViewofSongs.setItems(FXCollections.observableList(songArray));
+                listViewofSongs.scrollTo(0);
+                listViewofSongs.getSelectionModel().select(0);
+           
 
     }
 
