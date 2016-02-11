@@ -1,5 +1,6 @@
 package design;
 
+import javax.swing.JOptionPane;
 import application.SongLib;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -84,6 +85,7 @@ public class Controller implements Initializable {
         System.out.println("testing for repeats");
         if (findSong(songArray, name, artist)) {
         	System.out.println("Song already exists...create dialog box.");
+                infoBox("The song is already on the list", "Song Repeat");
             return;
         }
 
@@ -231,6 +233,12 @@ public class Controller implements Initializable {
             System.out.println(findSong.getArtist());
             System.out.println("---------------");
         }
+    }
+    
+    //Display a dialog box
+    public static void infoBox(String infoMessage, String titleBar)
+    {
+        JOptionPane.showMessageDialog(null, infoMessage, "Error: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
     }
 }
 
