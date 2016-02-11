@@ -50,6 +50,11 @@ public class Controller implements Initializable {
     @FXML
     private void addSong(ActionEvent event) {
 
+        ArrayList<Song> songArray = populateListc();
+        
+        // Printing all songs for testing
+        printSongs(songArray);
+
         String name = songName.getText();
         String artist = songArtist.getText();
         String album = songAlbum.getText();
@@ -72,28 +77,24 @@ public class Controller implements Initializable {
                 return;
             }
         } else {
-            year = songYear.getText();
+            year = "N/A";
         }
 
         //Check if song is already on the list
-        if (findSong(name, artist)) {
-            System.out.println("song repeat");
+        System.out.println("testing for repeats");
+        if (findSong(songArray, name, artist)) {
+        	System.out.println("Song already exists...create dialog box.");
             return;
         }
 
-        //Check if no Year is entered to prevent it from writing to the text file and causing errors.
-        if (year.equals("")){
-        	songYear.setText("0");
-        	year = "0";
-        }
-        
         //Writes the four current textfields to new lines in songsList.txt in order to be added to the ArrayList
         try {
             FileWriter out = new FileWriter("./src/application/songsList.txt", true);
-            out.write(name + "\n");
-            out.write(artist + "\n");
-            out.write(album + "\n");
-            out.write(year + "\n");
+            out.write(name + "\n" + artist + "\n" + album + "\n" + year + "\n");
+//            out.write(artist + "\n");
+//            out.write(album + "\n");
+//            out.write(year + "\n");
+            out.flush();
             out.close();
 
         } catch (IOException e) {
@@ -101,10 +102,70 @@ public class Controller implements Initializable {
         }
 
         //Re-populate the arrayList with the new Song
-        List<Song> songArray = populateListc();
+        songArray = populateListc();
+        System.out.println("check point");
 
         //Refresh the List View display
         listViewofSongs.setItems(FXCollections.observableList(songArray));
+
+    }
+    
+    @FXML
+    private void editSong(ActionEvent event) {
+        ArrayList<Song> songArray = populateListc();
+               
+    }
+    
+    @FXML
+    private void deleteSong(ActionEvent event) {
+        
+        ArrayList<Song> songArray = populateListc();
+        String name = songName.getText();
+        String artist = songArtist.getText();
+        String album = songAlbum.getText();
+        String year = songYear.getText();
+        
+        // Delete the song if it is on the list
+        for(int j = 0; j < songArray.size(); j++)
+        {
+            Song song = songArray.get(j);
+
+            if(song.getName().equals(name) && song.getArtist().equals(artist)){
+               //found, delete.
+                songArray.remove(j);
+                break;
+            }
+        }
+        System.out.println("finish delete");
+//        for (Song findSong : songArray) {
+//            System.out.print(findSong.getName() + ", ");
+//            System.out.println(findSong.getArtist());
+//            if (findSong.getName().equals(name) && findSong.getArtist().equals(artist)) {
+//                System.out.println("trying to delete song");
+//                songArray.remove(songArray.indexOf(findSong));
+//            }
+//            else{
+//                songName.setText(name + " <-Song is not on the list");
+//            }
+//        }
+        // Write everything to txt file; overwrite everything
+        System.out.println("writing everything to file");
+        try {
+            FileWriter out = new FileWriter("./src/application/songsList.txt", false);
+            for (Song findSong : songArray) {
+                System.out.print(findSong.getName() + ", ");
+                System.out.println(findSong.getArtist());
+                out.write(findSong.getName() + "\n" + findSong.getArtist() + "\n" 
+                        + findSong.getAlbum() + "\n" + findSong.getYear() + "\n");
+            }
+            out.flush();
+            out.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+                listViewofSongs.setItems(FXCollections.observableList(songArray));
 
     }
 
@@ -125,10 +186,14 @@ public class Controller implements Initializable {
 
         //Updates the textfields with the currently selected Song
         listViewofSongs.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue == null){
+                System.out.println("newvalue is null");
+                return;
+            }
             songName.setText(newValue.getName());
             songArtist.setText(newValue.getArtist());
             songAlbum.setText(newValue.getAlbum());
-            songYear.setText(String.valueOf(newValue.getYear()));
+            songYear.setText(newValue.getYear());
             System.out.println("Currently selected song: " + newValue.getName() + " by " + newValue.getArtist() + ".");
         });
     }
@@ -147,12 +212,25 @@ public class Controller implements Initializable {
         return null;
     }
 
-    private boolean findSong(String name, String artist) {
-        for (Song findSong : songArray) {
+    // Used to find if song is already on the list
+    private boolean findSong(ArrayList<Song> songs, String name, String artist) {
+        for (Song findSong : songs) {
+            System.out.print(findSong.getName() + ", ");
+            System.out.println(findSong.getArtist());
             if (findSong.getName().equals(name) && findSong.getArtist().equals(artist)) {
                 return true;
             }
         }
         return false;
     }
+    
+    //Print all songs from songArray; for testing only
+    private void printSongs(ArrayList<Song> songs) {
+        for (Song findSong : songs) {
+            System.out.print(findSong.getName());
+            System.out.println(findSong.getArtist());
+            System.out.println("---------------");
+        }
+    }
 }
+
