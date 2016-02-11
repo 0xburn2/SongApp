@@ -18,16 +18,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.stage.Popup;
 
 /*
  * TO DO:
- 1. FINISHED - Catch the error that occurs if somebody enters a non-integer value in the Year field
  2. Auto-select the newly added song
- 3. FINISHED - Before adding a song, check to see if a Song with that same name and artist already exists and refuse the add if it does
- 4. Make the album and year fields optional for adding/editing
- 5. Fix the error in console that occurs when adding (but for some reason doesn't interfere otherwise)
+ 3. Move the selection to a new song after Deletion 
  6. Add Edit functionality
- 7. Add Delete Functionality
  */
 public class Controller implements Initializable {
 
@@ -79,6 +78,11 @@ public class Controller implements Initializable {
         } else {
             year = "N/A";
         }
+        
+        if (name.equals("") || artist.equals("")){
+        	System.out.println("Name and artist fields are required");
+        	return;
+        }
 
         //Check if song is already on the list
         System.out.println("testing for repeats");
@@ -107,13 +111,16 @@ public class Controller implements Initializable {
 
         //Refresh the List View display
         listViewofSongs.setItems(FXCollections.observableList(songArray));
+        
+        listViewofSongs.getSelectionModel().select(4);
 
     }
     
     @FXML
     private void editSong(ActionEvent event) {
         ArrayList<Song> songArray = populateListc();
-               
+        
+       
     }
     
     @FXML
@@ -196,6 +203,8 @@ public class Controller implements Initializable {
             songYear.setText(newValue.getYear());
             System.out.println("Currently selected song: " + newValue.getName() + " by " + newValue.getArtist() + ".");
         });
+        
+        listViewofSongs.getSelectionModel().select(0);
     }
 
     /*
