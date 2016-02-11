@@ -116,8 +116,15 @@ public class Controller implements Initializable {
         //Refresh the List View display
         listViewofSongs.setItems(FXCollections.observableList(songArray));
         
-        listViewofSongs.getSelectionModel().select(4);
         
+        for (int i = 0; i < songArray.size(); i++){
+            Song song = songArray.get(i);
+        	if (song.getName().equals(songName.getText())){
+        		listViewofSongs.scrollTo(i);
+        		listViewofSongs.getSelectionModel().select(i);
+        		return;
+        	}
+        }
     }
     
     @FXML
