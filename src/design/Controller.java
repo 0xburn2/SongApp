@@ -80,16 +80,12 @@ public class Controller implements Initializable {
             year = "N/A";
         }
         
+        
         if (name.equals("") || artist.equals("")){
         	System.out.println("Name and artist fields are required");
         	return;
         }
 
-        //Check for blank album field
-        if(album.equals("")){
-            album = "N/A";
-
-        }
 
         //Check if song is already on the list
         System.out.println("testing for repeats");
