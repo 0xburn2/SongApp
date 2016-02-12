@@ -1,6 +1,5 @@
 package design;
 
-import javax.swing.JOptionPane;
 import application.SongLib;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -9,19 +8,16 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.stage.Popup;
 
 /*
  * TO DO:
@@ -50,7 +46,7 @@ public class Controller implements Initializable {
     private void addSong(ActionEvent event) {
 
         ArrayList<Song> songArray = populateListc();
-        
+
         // Printing all songs for testing
         printSongs(songArray);
 
@@ -78,19 +74,22 @@ public class Controller implements Initializable {
         } else {
             year = "N/A";
         }
-        
-        
-        if (name.equals("") || artist.equals("")){
-        	System.out.println("Name and artist fields are required");
-        	return;
-        }
 
+        if (name.equals("") || artist.equals("")) {
+            System.out.println("Name and artist fields are required");
+            return;
+        }
 
         //Check if song is already on the list
         System.out.println("testing for repeats");
         if (findSong(songArray, name, artist)) {
-        	System.out.println("Song already exists...create dialog box.");
-                infoBox("The song is already on the list", "Song Repeat");
+            System.out.println("Song already exists...create dialog box.");
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("ERROR");
+            alert.setHeaderText(null);
+            alert.setContentText("The song " + name + " is already on the list");
+
+            alert.showAndWait();
             return;
         }
 
@@ -114,41 +113,47 @@ public class Controller implements Initializable {
 
         //Refresh the List View display
         listViewofSongs.setItems(FXCollections.observableList(songArray));
-        
+
         //Select newly added song in ListView
-        for (int i = 0; i < songArray.size(); i++){
+        for (int i = 0; i < songArray.size(); i++) {
             Song song = songArray.get(i);
-        	if (song.getName().equals(songName.getText())){
-        		listViewofSongs.scrollTo(i);
-        		listViewofSongs.getSelectionModel().select(i);
-        		return;
-        	}
+            if (song.getName().equals(songName.getText())) {
+                listViewofSongs.scrollTo(i);
+                listViewofSongs.getSelectionModel().select(i);
+                return;
+            }
         }
     }
-    
+
     @FXML
     private void editSong(ActionEvent event) {
         ArrayList<Song> songArray = populateListc();
-        
-       
+
     }
-    
+
     @FXML
     private void deleteSong(ActionEvent event) {
-        
+
         ArrayList<Song> songArray = populateListc();
         String name = songName.getText();
         String artist = songArtist.getText();
         String album = songAlbum.getText();
         String year = songYear.getText();
-        
-        //Delete the song if it is on the list
-        for(int j = 0; j < songArray.size(); j++)
-        {
+
+        // Delete the song if it is on the list
+        int newSelectLocation = 0;
+        for (int j = 0; j < songArray.size(); j++) {
+
             Song song = songArray.get(j);
 
-            if(song.getName().equals(name) && song.getArtist().equals(artist)){
-               //found, delete.
+            if (song.getName().equals(name) && song.getArtist().equals(artist)) {
+                //found, delete.
+                //If it is deleting at the last location
+                if (j == songArray.size() - 1) {
+                    newSelectLocation = j - 1;
+                } else {
+                    newSelectLocation = j;
+                }
                 songArray.remove(j);
                 break;
             }
@@ -165,7 +170,7 @@ public class Controller implements Initializable {
 //                songName.setText(name + " <-Song is not on the list");
 //            }
 //        }
-        
+
         // Write everything to txt file; overwrite everything
         System.out.println("writing everything to file");
         try {
@@ -173,7 +178,7 @@ public class Controller implements Initializable {
             for (Song findSong : songArray) {
                 System.out.print(findSong.getName() + ", ");
                 System.out.println(findSong.getArtist());
-                out.write(findSong.getName() + "\n" + findSong.getArtist() + "\n" 
+                out.write(findSong.getName() + "\n" + findSong.getArtist() + "\n"
                         + findSong.getAlbum() + "\n" + findSong.getYear() + "\n");
             }
             out.flush();
@@ -182,14 +187,12 @@ public class Controller implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
-        
-     
-                listViewofSongs.setItems(FXCollections.observableList(songArray));
-                listViewofSongs.scrollTo(0);
-                listViewofSongs.getSelectionModel().select(0);
-           
-
+        listViewofSongs.setItems(FXCollections.observableList(songArray));
+        if (songArray.size() > 0) {
+            System.out.println(newSelectLocation);
+            listViewofSongs.scrollTo(newSelectLocation);
+            listViewofSongs.getSelectionModel().select(newSelectLocation);
+        }
     }
 
     /*
@@ -209,7 +212,7 @@ public class Controller implements Initializable {
 
         //Updates the textfields with the currently selected Song
         listViewofSongs.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if(newValue == null){
+            if (newValue == null) {
                 System.out.println("newvalue is null");
                 return;
             }
@@ -219,7 +222,7 @@ public class Controller implements Initializable {
             songYear.setText(newValue.getYear());
             System.out.println("Currently selected song: " + newValue.getName() + " by " + newValue.getArtist() + ".");
         });
-        
+
         listViewofSongs.getSelectionModel().select(0);
     }
 
@@ -248,7 +251,7 @@ public class Controller implements Initializable {
         }
         return false;
     }
-    
+
     //Print all songs from songArray; for testing only
     private void printSongs(ArrayList<Song> songs) {
         for (Song findSong : songs) {
@@ -257,11 +260,5 @@ public class Controller implements Initializable {
             System.out.println("---------------");
         }
     }
-    
-    //Display a dialog box
-    public static void infoBox(String infoMessage, String titleBar)
-    {
-        JOptionPane.showMessageDialog(null, infoMessage, "Error: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
-    }
-}
 
+}
