@@ -10,6 +10,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,7 +23,6 @@ import javafx.scene.control.TextField;
 
 /*
  * TO DO:
- 3. Move the selection to a new song after Deletion 
  6. Add Edit functionality
  */
 public class Controller implements Initializable {
@@ -45,90 +46,119 @@ public class Controller implements Initializable {
     @FXML
     private void addSong(ActionEvent event) {
 
-        ArrayList<Song> songArray = populateListc();
+    	songAdd();
+       
+    }
+    
+    public void songAdd(){
+    	 ArrayList<Song> songArray = populateListc();
 
-        // Printing all songs for testing
-        printSongs(songArray);
+         // Printing all songs for testing
+         printSongs(songArray);
 
-        String name = songName.getText();
-        String artist = songArtist.getText();
-        String album = songAlbum.getText();
-        String year = songYear.getText();
+         String name = songName.getText();
+         String artist = songArtist.getText();
+         String album = songAlbum.getText();
+         String year = songYear.getText();
 
-        int yearString = 0;
-        // If the year field is not blank
-        if (!(year.equals(""))) {
-            System.out.println("testing year");
-            // Check for proper int input
-            try {
-                yearString = Integer.parseInt(year);
-                if (!(yearString > -1 && yearString < 2017)) {
-                    songYear.setText("INVALID YEAR!!");
-                    return;
-                }
-                year = Integer.toString(yearString);
-            } catch (NumberFormatException e) {
-                songYear.setText("INVALID YEAR!!");
-                return;
-            }
-        } else {
-            year = "N/A";
-        }
+         int yearString = 0;
+         // If the year field is not blank
+         if (!(year.equals(""))) {
+             System.out.println("testing year");
+             // Check for proper int input
+             try {
+                 yearString = Integer.parseInt(year);
+                 if (!(yearString > -1 && yearString < 2017)) {
+                     songYear.setText("INVALID YEAR!!");
+                     return;
+                 }
+                 year = Integer.toString(yearString);
+             } catch (NumberFormatException e) {
+                 songYear.setText("INVALID YEAR!!");
+                 return;
+             }
+         } else {
+             year = "N/A";
+         }
 
-        if (name.equals("") || artist.equals("")) {
-            System.out.println("Name and artist fields are required");
-            return;
-        }
+         if (name.equals("") || artist.equals("")) {
+             System.out.println("Name and artist fields are required");
+             return;
+         }
 
-        //Check if song is already on the list
-        System.out.println("testing for repeats");
-        if (findSong(songArray, name, artist)) {
-            System.out.println("Song already exists...create dialog box.");
-            Alert alert = new Alert(AlertType.INFORMATION);
-            alert.setTitle("ERROR");
-            alert.setHeaderText(null);
-            alert.setContentText("The song " + name + " is already on the list");
+         //Check if song is already on the list
+         System.out.println("testing for repeats");
+         if (findSong(songArray, name, artist)) {
+             System.out.println("Song already exists...create dialog box.");
+             Alert alert = new Alert(AlertType.INFORMATION);
+             alert.setTitle("ERROR");
+             alert.setHeaderText(null);
+             alert.setContentText("The song " + name + " is already on the list");
 
-            alert.showAndWait();
-            return;
-        }
+             alert.showAndWait();
+             return;
+         }
 
-        //Writes the four current textfields to new lines in songsList.txt in order to be added to the ArrayList
-        try {
-            FileWriter out = new FileWriter("./src/application/songsList.txt", true);
-            out.write(name + "\n" + artist + "\n" + album + "\n" + year + "\n");
-//            out.write(artist + "\n");
-//            out.write(album + "\n");
-//            out.write(year + "\n");
-            out.flush();
-            out.close();
+         //Writes the four current textfields to new lines in songsList.txt in order to be added to the ArrayList
+         try {
+             FileWriter out = new FileWriter("./src/application/songsList.txt", true);
+             out.write(name + "\n" + artist + "\n" + album + "\n" + year + "\n");
+//             out.write(artist + "\n");
+//             out.write(album + "\n");
+//             out.write(year + "\n");
+             out.flush();
+             out.close();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
 
-        //Re-populate the arrayList with the new Song
-        songArray = populateListc();
-        System.out.println("check point");
+         //Re-populate the arrayList with the new Song
+         songArray = populateListc();
+         System.out.println("check point");
 
-        //Refresh the List View display
-        listViewofSongs.setItems(FXCollections.observableList(songArray));
+         //Refresh the List View display
+         listViewofSongs.setItems(FXCollections.observableList(songArray));
 
-        //Select newly added song in ListView
-        for (int i = 0; i < songArray.size(); i++) {
-            Song song = songArray.get(i);
-            if (song.getName().equals(songName.getText())) {
-                listViewofSongs.scrollTo(i);
-                listViewofSongs.getSelectionModel().select(i);
-                return;
-            }
-        }
+         //Select newly added song in ListView
+         for (int i = 0; i < songArray.size(); i++) {
+             Song song = songArray.get(i);
+             if (song.getName().equals(songName.getText())) {
+                 listViewofSongs.scrollTo(i);
+                 listViewofSongs.getSelectionModel().select(i);
+                 return;
+             }
+         }
     }
 
     @FXML
     private void editSong(ActionEvent event) {
         ArrayList<Song> songArray = populateListc();
+      
+            songArray.remove(listViewofSongs.getSelectionModel().getSelectedIndex());
+            System.out.println("writing everything to file");
+            try {
+                FileWriter out = new FileWriter("./src/application/songsList.txt", false);
+                for (Song findSong : songArray) {
+                    System.out.print(findSong.getName() + ", ");
+                    System.out.println(findSong.getArtist());
+                    out.write(findSong.getName() + "\n" + findSong.getArtist() + "\n"
+                            + findSong.getAlbum() + "\n" + findSong.getYear() + "\n");
+                }
+                out.flush();
+                out.close();
 
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            listViewofSongs.setItems(FXCollections.observableList(songArray));
+            songAdd();
+
+            
+            //Create new Song object with values from the textfields after Edit is created
+            //Navigate in the arraylist to the currently selected song that is being edit
+            //Remove old song, add new song and refresh list
+    
     }
 
     @FXML
