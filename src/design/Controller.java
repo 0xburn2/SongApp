@@ -143,12 +143,20 @@ public class Controller implements Initializable {
         String year = songYear.getText();
         
         // Delete the song if it is on the list
+        int newSelectLocation = 0;
         for(int j = 0; j < songArray.size(); j++)
         {
             Song song = songArray.get(j);
 
             if(song.getName().equals(name) && song.getArtist().equals(artist)){
                //found, delete.
+                //If it is deleting at the last location
+                if(j == songArray.size()-1){
+                    newSelectLocation = j-1;
+                }
+                else{
+                    newSelectLocation = j;
+                }
                 songArray.remove(j);
                 break;
             }
@@ -182,14 +190,12 @@ public class Controller implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
-        
-     
-                listViewofSongs.setItems(FXCollections.observableList(songArray));
-                listViewofSongs.scrollTo(0);
-                listViewofSongs.getSelectionModel().select(0);
-           
-
+        listViewofSongs.setItems(FXCollections.observableList(songArray));
+        if (songArray.size() > 0) {
+            System.out.println(newSelectLocation);
+            listViewofSongs.scrollTo(newSelectLocation);
+            listViewofSongs.getSelectionModel().select(newSelectLocation);
+        }
     }
 
     /*
