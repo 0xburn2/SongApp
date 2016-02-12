@@ -6,10 +6,6 @@ Comfortably Numb
 Pink Floyd
 The Wall
 1986
-Dearly Beloved
-Kingdom Hearts
-Kingdom Hearts
-2002
 Hotel California
 The Eagles
 N/A
@@ -18,10 +14,6 @@ Language
 Porter Robinson
 Single
 2011
-Mockingbird
-Eminem
-The Slim Shady LP
-2002
 One
 Swedish House Mafia
 Single
@@ -34,3 +26,11 @@ To Zanarkand
 FFX
 FFX
 2000
+Mockingbird
+Eminem
+The Slim Shady LP
+2002
+Aerith's Themef
+Final Fantasy
+Final Fantasy
+N/A
