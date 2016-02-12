@@ -142,7 +142,7 @@ public class Controller implements Initializable {
         String album = songAlbum.getText();
         String year = songYear.getText();
         
-        // Delete the song if it is on the list
+        //Delete the song if it is on the list
         for(int j = 0; j < songArray.size(); j++)
         {
             Song song = songArray.get(j);
